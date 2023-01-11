@@ -1,11 +1,6 @@
 #include "ReadoutSimSteppingAction.hh"
-//#include "EventAction.hh"
-// #include "HistoManager.hh"
-// #include "TrackInformation.hh"
 #include "Run.hh"
 
-// #include "G4Cerenkov.hh"
-// #include "G4Scintillation.hh"
 #include "G4OpBoundaryProcess.hh"
 
 #include "G4Step.hh"
