@@ -1,5 +1,5 @@
 # readout-sim
-Geant4 Application for simulating Atm-Argon Instrumentation of Legend-1000.
+Geant4 Application to simulate Atm-Argon Instrumentation of Legend-1000.
 
 Two different designs for light collection are implemented:
 - baseline: 12 small acrylic bars serves as light guide and are placed on the front surface of the moderator panel; 
