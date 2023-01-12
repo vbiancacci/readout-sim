@@ -35,78 +35,80 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
     fParticleGun->SetParticleDefinition(particle);
 
     // return integers uniformly distributed in [0, n]
-    // G4int surface = surfaceGenerator->Integer(2); // alternative
-    G4double surface = surfaceGenerator->Uniform(0., 1.); // baseline
+    G4int surface = surfaceGenerator->Integer(2); // alternative
+    // G4double surface = surfaceGenerator->Uniform(0., 1.); // baseline
     G4double pi = 3.14159265359;
     G4double u = 0.;
     G4double v = 0.;
 
     // Panel Design
     // position coordinates
-    // G4double xPos = -0.05;
-    // G4double yPos = yPosGenerator->Uniform(-0.5, 0.5);
-    // G4double zPos = zPosGenerator->Uniform(-1.5, 1.5);
+    G4double xPos = -0.05;
+    G4double yPos = yPosGenerator->Uniform(-0.5, 0.5);
+    G4double zPos = zPosGenerator->Uniform(-1.5, 1.5);
 
-    G4double xPos = 0., yPos = 0., zPos = 0.;
+    // G4double xPos = 0., yPos = 0., zPos = 0.;
     G4double xMom = 0., yMom = 0., zMom = 0.;
 
     // Baseline Design
-    if (surface < 0.143)
-    {
-        //position coordinates
-        xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02);
-        yPos = yPosGenerator->Uniform(-0.5, 0.5);
-        zPos = 0.05;
-        // momentum coordinates
-        u = thetaGenerator->Uniform(-1,0);
-        v = phiGenerator->Uniform(-pi, pi);
+    // if (surface < 0.143)
+    // {
+    //     //position coordinates
+    //     xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02);
+    //     yPos = yPosGenerator->Uniform(-0.5, 0.5);
+    //     zPos = 0.05;
+    //     // momentum coordinates
+    //     u = thetaGenerator->Uniform(-1,0);
+    //     v = phiGenerator->Uniform(-pi, pi);
 
-        man->FillNtupleIColumn(6, 1);
-    }
-    else if (surface > 0.857)
-    {
-        // // position coordinates
-        xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02);
-        yPos = yPosGenerator->Uniform(-0.5, 0.5);
-        zPos = -0.05;
-        // // momentum coordinates
-        u = thetaGenerator->Uniform(0,1);
-        v = phiGenerator->Uniform(-pi, pi);
-        man->FillNtupleIColumn(6, 2);
+    //     man->FillNtupleIColumn(6, 1);
+    // }
+    // else if (surface > 0.857)
+    // {
+    //     // // position coordinates
+    //     xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02);
+    //     yPos = yPosGenerator->Uniform(-0.5, 0.5);
+    //     zPos = -0.05;
+    //     // // momentum coordinates
+    //     u = thetaGenerator->Uniform(0,1);
+    //     v = phiGenerator->Uniform(-pi, pi);
+    //     man->FillNtupleIColumn(6, 2);
 
-    }
-    else
-    {
-        // position coordinates
-        xPos = 0.05 + 0.02 + 0.0001;
-        yPos = yPosGenerator->Uniform(-0.5, 0.5);
-        zPos = zPosGenerator->Uniform(-0.05, 0.05);
+    // }
+    // else
+    // {
+    //     // position coordinates
+    //     xPos = 0.05 + 0.02 + 0.0001;
+    //     yPos = yPosGenerator->Uniform(-0.5, 0.5);
+    //     zPos = zPosGenerator->Uniform(-0.05, 0.05);
 
-        // momentum coordinates
+    //     // momentum coordinates
 
-        // xMom = sqrt(1-u*u) * cos(v);
-        // yMom = sqrt(1-u*u) * sin(v);
-        // zMom = u;
-        u = thetaGenerator->Uniform(-1,1);
-        v = phiGenerator->Uniform(-pi/2, pi/2);
-        // xPosGenerator->Sphere(xMom, yMom, zMom, 1.);
+    //     // xMom = sqrt(1-u*u) * cos(v);
+    //     // yMom = sqrt(1-u*u) * sin(v);
+    //     // zMom = u;
+    //     u = thetaGenerator->Uniform(-1,1);
+    //     v = phiGenerator->Uniform(-pi/2, pi/2);
+    //     // xPosGenerator->Sphere(xMom, yMom, zMom, 1.);
 
-        man->FillNtupleIColumn(6, 0);
-    }   
+    //     man->FillNtupleIColumn(6, 0);
+    // }   
 
+    u = thetaGenerator->Uniform(-1,1);
+    v = phiGenerator->Uniform(-pi/2, pi/2);
     xMom = sqrt(1-u*u) * cos(v);
     yMom = sqrt(1-u*u) * sin(v);
     zMom = u;
 
     // Baseline Design
-    xMom = -xMom;
+    // xMom = -xMom;
 
     // Panel Only Design
-    // if(surface == 1)
-    // {
-    //     xPos = -xPos;
-    //     xMom = -xMom;
-    // } 
+    if(surface == 1)
+    {
+        xPos = -xPos;
+        xMom = -xMom;
+    } 
 
     G4ThreeVector position(xPos*m, yPos*m, zPos*m);
     G4ThreeVector momentum(xMom, yMom, zMom);

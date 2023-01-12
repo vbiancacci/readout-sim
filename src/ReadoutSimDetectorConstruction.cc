@@ -1,4 +1,5 @@
 #include "ReadoutSimDetectorConstruction.hh"
+// #include "ReadoutSimDetectorMessenger.hh"
 
 #include "G4Element.hh"
 #include "G4Box.hh"
@@ -18,17 +19,13 @@ ReadoutSimDetectorConstruction::ReadoutSimDetectorConstruction()
     innerCladdingMPT = new G4MaterialPropertiesTable();
     outerCladdingMPT = new G4MaterialPropertiesTable();
 
-    // fSurfaceMPT = new G4MaterialPropertiesTable();
-
-    // fSurface = new G4OpticalSurface("Surface");
-    // fSurface->SetType(dielectric_dielectric);
-    // fSurface->SetFinish(ground);
-    // fSurface->SetModel(unified);
-    // fSurface->SetMaterialPropertiesTable(fSurfaceMPT);
+    // fDetectorMessenger = new DetectorMessenger(this);
 }
 
 ReadoutSimDetectorConstruction::~ReadoutSimDetectorConstruction()
-{}
+{
+    // delete fDetectorMessenger;
+}
 
 G4VPhysicalVolume *ReadoutSimDetectorConstruction::Construct() 
 {
@@ -36,10 +33,15 @@ G4VPhysicalVolume *ReadoutSimDetectorConstruction::Construct()
 
     SetOpticalProperties();
 
-    // return SetupPanelOnly();
-    // return SetupPanelWithCladding();
+    // if (fGeometryName == "baseline")                 {return SetupBaselineDesign();}
+    // else if (fGeometryName == "alternative")         {return SetupPanelOnly();}
+    // else if (fGeometryName == "baselineCladding")    {return SetupBaselineCladding();}
+    // else if (fGeometryName == "alternativeCladding") {return SetupPanelWithCladding();}
+
     // return SetupBaselineDesign();
-    return SetupBaselineCladding();
+    return SetupPanelOnly();
+    // return SetupBaselineCladding();
+    // return SetupPanelWithCladding();
 }
 
 void ReadoutSimDetectorConstruction::DefineMaterials()
@@ -85,6 +87,7 @@ void ReadoutSimDetectorConstruction::SetOpticalProperties()
 
     // PMMA
     G4double pmmaRIndex[] = {1.50};   // for PMMA @ 430nm
+    // G4double pmmaAbsorption[] = {2.*m};     // for PMMA @ 430nm, try 1.5/2/2.5/3 m
     G4double pmmaAbsorption[] = {2.*m};     // for PMMA @ 430nm, try 1.5/2/2.5/3 m
     pmmaMPT->AddProperty("RINDEX", energy, pmmaRIndex, nEntries)->SetSpline(true);
     pmmaMPT->AddProperty("ABSLENGTH", energy, pmmaAbsorption, nEntries)->SetSpline(true);

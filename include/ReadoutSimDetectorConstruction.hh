@@ -6,6 +6,8 @@
 #include "G4Material.hh"
 #include "G4LogicalVolume.hh"
 
+class DetectorMessenger;
+
 class ReadoutSimDetectorConstruction : public G4VUserDetectorConstruction
 {
     public:
@@ -14,6 +16,8 @@ class ReadoutSimDetectorConstruction : public G4VUserDetectorConstruction
 
         virtual G4VPhysicalVolume *Construct(); 
         // virtual void ConstructSDandField();
+
+        void SetGeometry(G4String name) {fGeometryName = name;};
     
     private:
         void DefineMaterials();
@@ -24,6 +28,8 @@ class ReadoutSimDetectorConstruction : public G4VUserDetectorConstruction
         G4VPhysicalVolume* SetupBaselineDesign();
         G4VPhysicalVolume* SetupBaselineCladding();
 
+        G4String fGeometryName;
+
         G4LogicalVolume *fRightPENLayerLogical, *fLeftPENLayerLogical;
         G4LogicalVolume *fTopPENLayerLogical, *fBotPENLayerLogical;
         G4Material *worldMaterial;
@@ -31,6 +37,8 @@ class ReadoutSimDetectorConstruction : public G4VUserDetectorConstruction
         G4Material *innerCladdingMaterial, *outerCladdingMaterial;
 
         G4MaterialPropertiesTable *pmmaMPT, *penMPT, *larMPT, *innerCladdingMPT, *outerCladdingMPT;
+
+        DetectorMessenger *fDetectorMessenger;
 };
 
 #endif
