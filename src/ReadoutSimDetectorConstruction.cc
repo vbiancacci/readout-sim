@@ -38,9 +38,9 @@ G4VPhysicalVolume *ReadoutSimDetectorConstruction::Construct()
     // else if (fGeometryName == "baselineCladding")    {return SetupBaselineCladding();}
     // else if (fGeometryName == "alternativeCladding") {return SetupPanelWithCladding();}
 
-    // return SetupBaselineDesign();
+    return SetupBaselineDesign();
     // return SetupPanelOnly();
-    return SetupBaselineCladding();
+    // return SetupBaselineCladding();
     // return SetupPanelWithCladding();
 }
 

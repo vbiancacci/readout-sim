@@ -42,6 +42,7 @@ void ReadoutSimRunAction::BeginOfRunAction(const G4Run *aRun)
     man->CreateNtupleIColumn("surface");
     man->CreateNtupleIColumn("hitSurface"); 
     man->CreateNtupleDColumn("stepLength");
+    man->CreateNtupleDColumn("G4TrackLength");
 
     man->FinishNtuple(0);
 

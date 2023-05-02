@@ -117,13 +117,13 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
     // } 
 
 
-    xPos = 0.05 + 0.0001 + 0.00002 + 0.01; // cladding
+    xPos = 0.; 
     yPos = 0.;
-    zPos = 0.;
+    zPos = -1.45;
 
     xMom = 0.;
-    yMom = -1.;
-    zMom = 0.;
+    yMom = 0.;
+    zMom = 1.;
 
 
     G4ThreeVector position(xPos*m, yPos*m, zPos*m);
