@@ -35,7 +35,7 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
     fParticleGun->SetParticleDefinition(particle);
 
     // return integers uniformly distributed in [0, n]
-    G4int surface = surfaceGenerator->Integer(2); // alternative
+    // G4int surface = surfaceGenerator->Integer(2); // alternative (panel)
     // G4double surface = surfaceGenerator->Uniform(0., 1.); // baseline
     G4double pi = 3.14159265359;
     G4double u = 0.;
@@ -43,18 +43,19 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
 
     // Panel Design
     // position coordinates
-    G4double xPos = -0.05;
-    G4double yPos = yPosGenerator->Uniform(-0.5, 0.5);
-    G4double zPos = zPosGenerator->Uniform(-1.5, 1.5);
+    // G4double xPos = -0.05;
+    // G4double yPos = yPosGenerator->Uniform(-0.5, 0.5);
+    // G4double zPos = zPosGenerator->Uniform(-1.5, 1.5);
 
-    // G4double xPos = 0., yPos = 0., zPos = 0.;
+    G4double xPos = 0., yPos = 0., zPos = 0.;
     G4double xMom = 0., yMom = 0., zMom = 0.;
 
-    // Baseline Design
+    // // Baseline Design
     // if (surface < 0.143)
     // {
     //     //position coordinates
-    //     xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02);
+    //     // xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02); // no cladding
+    //     xPos = 0.05 + 0.0001 + 0.00002 + xPosGenerator->Uniform(0., 0.02); // cladding
     //     yPos = yPosGenerator->Uniform(-0.5, 0.5);
     //     zPos = 0.05;
     //     // momentum coordinates
@@ -65,8 +66,9 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
     // }
     // else if (surface > 0.857)
     // {
-    //     // // position coordinates
-    //     xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02);
+    //     // position coordinates
+    //     // xPos = 0.05 + 0.0001 + xPosGenerator->Uniform(0., 0.02); // no cladding
+    //     xPos = 0.05 + 0.0001 + 0.00002 + xPosGenerator->Uniform(0., 0.02); // cladding
     //     yPos = yPosGenerator->Uniform(-0.5, 0.5);
     //     zPos = -0.05;
     //     // // momentum coordinates
@@ -78,7 +80,8 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
     // else
     // {
     //     // position coordinates
-    //     xPos = 0.05 + 0.02 + 0.0001;
+    //     // xPos = 0.05 + 0.02 + 0.0001; // no cladding
+    //     xPos = 0.05 + 0.02 + 0.0001 + 0.00002; // cladding
     //     yPos = yPosGenerator->Uniform(-0.5, 0.5);
     //     zPos = zPosGenerator->Uniform(-0.05, 0.05);
 
@@ -94,21 +97,34 @@ void ReadoutSimPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
     //     man->FillNtupleIColumn(6, 0);
     // }   
 
-    u = thetaGenerator->Uniform(-1,1);
-    v = phiGenerator->Uniform(-pi/2, pi/2);
-    xMom = sqrt(1-u*u) * cos(v);
-    yMom = sqrt(1-u*u) * sin(v);
-    zMom = u;
+    // Panel only design 
+    // u = thetaGenerator->Uniform(-1,1);
+    // v = phiGenerator->Uniform(-pi/2, pi/2);
+
+    // Common
+    // xMom = sqrt(1-u*u) * cos(v);
+    // yMom = sqrt(1-u*u) * sin(v);
+    // zMom = u;
 
     // Baseline Design
     // xMom = -xMom;
 
     // Panel Only Design
-    if(surface == 1)
-    {
-        xPos = -xPos;
-        xMom = -xMom;
-    } 
+    // if(surface == 1)
+    // {
+    //     xPos = -xPos;
+    //     xMom = -xMom;
+    // } 
+
+
+    xPos = 0.05 + 0.0001 + 0.00002 + 0.01; // cladding
+    yPos = 0.;
+    zPos = 0.;
+
+    xMom = 0.;
+    yMom = -1.;
+    zMom = 0.;
+
 
     G4ThreeVector position(xPos*m, yPos*m, zPos*m);
     G4ThreeVector momentum(xMom, yMom, zMom);

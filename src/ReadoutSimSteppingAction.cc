@@ -114,7 +114,7 @@ void ReadoutSimSteppingAction::UserSteppingAction(const G4Step* step)
     // G4cout << "Currently in \t" << startVolumeName << G4endl;
     // G4cout << "Going into \t" << endVolumeName << G4endl; 
     // G4cout << "Step length \t" << track->GetStepLength()/m << G4endl;
-    // G4cout << "Track length: \t" << trackLength / m << "\n" << G4endl;
+    // G4cout << "Track length: \t" << trackLength << "\n" << G4endl;
 
     // if photon is absorbed, store volume information
     if(pds->GetProcessName() == "OpAbsorption")

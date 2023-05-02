@@ -39,8 +39,8 @@ G4VPhysicalVolume *ReadoutSimDetectorConstruction::Construct()
     // else if (fGeometryName == "alternativeCladding") {return SetupPanelWithCladding();}
 
     // return SetupBaselineDesign();
-    return SetupPanelOnly();
-    // return SetupBaselineCladding();
+    // return SetupPanelOnly();
+    return SetupBaselineCladding();
     // return SetupPanelWithCladding();
 }
 
@@ -88,7 +88,7 @@ void ReadoutSimDetectorConstruction::SetOpticalProperties()
     // PMMA
     G4double pmmaRIndex[] = {1.50};   // for PMMA @ 430nm
     // G4double pmmaAbsorption[] = {2.*m};     // for PMMA @ 430nm, try 1.5/2/2.5/3 m
-    G4double pmmaAbsorption[] = {2.*m};     // for PMMA @ 430nm, try 1.5/2/2.5/3 m
+    G4double pmmaAbsorption[] = {0.5*m};     // for PMMA @ 430nm, try 1.5/2/2.5/3 m
     pmmaMPT->AddProperty("RINDEX", energy, pmmaRIndex, nEntries)->SetSpline(true);
     pmmaMPT->AddProperty("ABSLENGTH", energy, pmmaAbsorption, nEntries)->SetSpline(true);
     PMMA->SetMaterialPropertiesTable(pmmaMPT);

@@ -16,7 +16,7 @@ class ReadoutSimSteppingAction : public G4UserSteppingAction
     virtual void UserSteppingAction(const G4Step*);
 
   private:
-    G4double stepLength = 0.*m;
+    G4double trackLength;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

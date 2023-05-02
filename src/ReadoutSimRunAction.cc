@@ -40,7 +40,7 @@ void ReadoutSimRunAction::BeginOfRunAction(const G4Run *aRun)
     man->CreateNtupleDColumn("yPhotonDirection");
     man->CreateNtupleDColumn("zPhotonDirection");
     man->CreateNtupleIColumn("surface");
-    man->CreateNtupleIColumn("hit");
+    man->CreateNtupleIColumn("hitSurface"); 
     man->CreateNtupleDColumn("stepLength");
 
     man->FinishNtuple(0);
