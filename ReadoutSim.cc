@@ -51,6 +51,7 @@ int main(int argc,char** argv)
     physicsList->ReplacePhysics(new G4EmStandardPhysics_option4());
     G4OpticalPhysics* opticalPhysics = new G4OpticalPhysics();
 
+    opticalPhysics-> SetTrackSecondariesFirst(kCerenkov,true);
     physicsList->RegisterPhysics(opticalPhysics);
     runManager->SetUserInitialization(physicsList);
     // runManager-> SetUserInitialization(new ReadoutSimPhysicsList());
